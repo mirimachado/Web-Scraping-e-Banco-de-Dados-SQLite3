@@ -6,10 +6,7 @@ git clone url_desse_repositório
 # Instale as dependências (utilizei as seguintes)
 - pip install requests
 - pip install beautifulsoup4
-- e o banco de dados sqlite3
-
-# Crie o arquivo do banco de dados
-python create_database.py
+- e o banco de dados sqlite3 (se necessário)
 
 # Rodando o projeto
 python main.py
