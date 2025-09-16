@@ -21,8 +21,14 @@ def busca_informacoes_redirecionamento(lista_de_atributos):
               itens_nomes = item.find('td', class_='attribute-name').text
               itens_valores = item.find('td', class_='attribute-value').text
               informacoes_tecnicas = informacoes_tecnicas + itens_nomes +  " | "  + itens_valores + "\n"
-
     return informacoes_tecnicas
+
+def verifica_se_existe_campo(elemento, seletor, classe):
+    try:
+        return elemento.find(seletor, class_=classe).text
+    except AttributeError:
+        return "Nenhum resultado encontrado para esse campo."
+
 
 def pega_dados_da_url(url, parametro_pesquisa_usuario, opcao_digitada):
  try:
@@ -33,20 +39,24 @@ def pega_dados_da_url(url, parametro_pesquisa_usuario, opcao_digitada):
      sku_produto = soup.find_all('div', class_=['product', 'product tag-atualizacao-uoou'])
      lista_de_produtos = []
      for i, elementos_da_lista in enumerate(elementos_da_lista):
-         titulo = elementos_da_lista.find('h4', class_='product-list-name').text
-         preco = elementos_da_lista.find('span', class_='to-price').text
-         valor_parcela = elementos_da_lista.find('span', class_='installments-amount').text
-         numero_parcelas = elementos_da_lista.find('span', class_='installments-number').text
-         preco_pix = elementos_da_lista.find('div', class_='cash-payment-container').text
+
+         titulo = verifica_se_existe_campo(elementos_da_lista, 'h4', 'product-list-name')
+         preco = verifica_se_existe_campo(elementos_da_lista,'span', 'to-price')
+         valor_parcela = verifica_se_existe_campo(elementos_da_lista,'span', 'installments-amount')
+         numero_parcelas = verifica_se_existe_campo(elementos_da_lista,'span', 'installments-number')
+         preco_pix = verifica_se_existe_campo(elementos_da_lista,'div', 'cash-payment-container')
          url_direcionamento = elementos_com_id[i].get('id')
          url_do_produto = "https://www.lojamaeto.com/" + url_direcionamento
          html = requests.get(url_do_produto).content
          soup_novo_html = BeautifulSoup(html, 'html.parser')
          atributos = soup_novo_html.find('table', class_='table table-striped table-hover')
          informacoes_tecnicas = busca_informacoes_redirecionamento(atributos)
-         product = Product(sku_produto[i].get('data-sku'), titulo, preco.replace(",",".").replace("R$ ", ""), preco_pix.replace("no pix", "").replace(",",".").replace("R$ ", ""), valor_parcela.replace(",",".").replace("R$ ", ""), numero_parcelas.replace("x", ""), informacoes_tecnicas)
+         product = Product(sku_produto[i].get('data-sku'), titulo,
+                           preco.replace(",",".").replace("R$ ", ""),
+                           preco_pix.replace("no pix", "").replace(",",".").replace("R$ ", ""),
+                           valor_parcela.replace(",",".").replace("R$ ", ""),
+                           numero_parcelas.replace("x", ""), informacoes_tecnicas)
          lista_de_produtos.append(product)
-
      for item in lista_de_produtos:
         filtro_encontrado = False
 
