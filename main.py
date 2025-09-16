@@ -20,7 +20,7 @@ def busca_informacoes_redirecionamento(lista_de_atributos):
         for item in elementos:
               itens_nomes = item.find('td', class_='attribute-name').text
               itens_valores = item.find('td', class_='attribute-value').text
-              informacoes_tecnicas = informacoes_tecnicas + itens_nomes +  " | "  + itens_valores + "\n"
+              informacoes_tecnicas = informacoes_tecnicas + itens_nomes +  " | "  + itens_valores + " | "
     return informacoes_tecnicas
 
 def verifica_se_existe_campo(elemento, seletor, classe):
@@ -90,6 +90,7 @@ def pega_dados_da_url(url, parametro_pesquisa_usuario, opcao_digitada):
                    + "Título do produto: " + item.titulo + "\n" + "Preço: " + item.preco + "\n"
                    + "SKU do produto: " + item.sku + "\n" + "Preço no PIX: " + item.preco_pix + "\n"
                    + "Número de parcelas: " + item.numero_parcelas + "\n" + "Valor da parcela: " + item.valor_parcela)
+             print("----------------------")
              if verificador:
                  atualizar_produto(conexao, cursor, item.titulo, item.preco, item.preco_pix, item.valor_parcela, item.numero_parcelas, item.informacoes_tecnicas, item.sku)
                  continue
@@ -107,7 +108,6 @@ def pega_dados_da_url(url, parametro_pesquisa_usuario, opcao_digitada):
 
 
 def redireciona_links_varredura(parametro_pesquisa_usuario, opcao_digitada):
-
     lista_de_urls= ["https://www.lojamaeto.com/dia-dos-pais-ofertas-imperdiveis", "https://www.lojamaeto.com/banheiro",
                      "https://www.lojamaeto.com/construcao", "https://www.lojamaeto.com/iluminacao", "https://www.lojamaeto.com/lonas",
                      "https://www.lojamaeto.com/material-eletrico", "https://www.lojamaeto.com/lancamento-solara",
@@ -118,11 +118,13 @@ def redireciona_links_varredura(parametro_pesquisa_usuario, opcao_digitada):
 opcao_digitada = input(f"Digite agora o seu parâmetro de busca,"
       f" você pode pesquisar por: \n 1 ) SKU do produto \n 2 ) Título do produto"
       f" \n 3 ) Preço \n 4 ) Preço no PIX \n 5 ) Valor da Parcela \n 6 ) Número de parcelas \n 7 ) Informações técnicas \n Digite o número: \n")
-parametro_pesquisa_usuario = input("Digite o que deseja encontrar: ")
-
 if not opcao_digitada.isdigit() or not (1 <= int(opcao_digitada) <= 7):
     print("Opção inválida!")
     exit()
+
+parametro_pesquisa_usuario = input("Digite o que deseja encontrar: ")
+
+
 
 redireciona_links_varredura(parametro_pesquisa_usuario, opcao_digitada)
 
