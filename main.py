@@ -110,6 +110,10 @@ opcao_digitada = input(f"Digite agora o seu parâmetro de busca,"
       f" \n 3 ) Preço \n 4 ) Preço no PIX \n 5 ) Valor da Parcela \n 6 ) Número de parcelas \n 7 ) Informações técnicas \n Digite o número: \n")
 parametro_pesquisa_usuario = input("Digite o que deseja encontrar: ")
 
+if not opcao_digitada.isdigit() or not (1 <= int(opcao_digitada) <= 7):
+    print("Opção inválida!")
+    exit()
+
 redireciona_links_varredura(parametro_pesquisa_usuario, opcao_digitada)
 
 
