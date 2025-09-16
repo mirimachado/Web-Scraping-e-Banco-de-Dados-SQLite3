@@ -6,6 +6,7 @@ from create_database import *
 from database import verifica_se_o_produto_existe, atualizar_produto, inserir_registro
 from product import Product
 
+headers = {'User-Agent': 'Mozilla/5.0...'}
 conexao = s.connect('web_scraping_database.db')
 cursor = conexao.cursor()
 criar_tabela(conexao, cursor)
@@ -25,7 +26,7 @@ def busca_informacoes_redirecionamento(lista_de_atributos):
 
 def pega_dados_da_url(url, parametro_pesquisa_usuario, opcao_digitada):
  try:
-     html = requests.get(url).content
+     html = requests.get(url, headers=headers, timeout=10).content
      soup = BeautifulSoup(html, 'html.parser')
      elementos_da_lista = soup.find_all('div', class_='product-list-info')
      elementos_com_id = soup.find_all('div', class_='product-list-image-container', id=True)
