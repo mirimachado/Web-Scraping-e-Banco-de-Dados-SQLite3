@@ -1,14 +1,14 @@
 # Web Scraping e Banco de Dados SQLite3 - Como executar a aplicação (passo a passo)
 
 # De início, clone o repositório
-git clone url_desse_repositório
+git clone https://github.com/mirimachado/Web-Scraping-e-Banco-de-Dados-SQLite3.git
 
 # Instale as dependências (utilizei as seguintes)
 - pip install requests
 - pip install beautifulsoup4
 - e o banco de dados sqlite3 (se necessário)
 
-# Rodando o projeto
+# Rodando o projeto - instruções
 python main.py
 
 No terminal, digite conforme solicitado, você pode pesquisar por palavras que vão conter os resultados que deseja, por exemplo: "LED SMD".
@@ -20,8 +20,13 @@ pesquisar por título do produto, como exemplo: "REFLETOR LED 200W", por preço,
 
 ![img.png](img.png)
 
-# Exemplo de busca
-Se buscar por "|", todos as informações técnicas que tiverem "|" serão retornadas no terminal e salvas no banco, incluindo atualização caso a mesma já exista no banco.
+# Exemplos de busca
+- Se buscar por "Espaçador Nivelador", todos os títulos de produtos com "Espaçador Nivelador", serão retornados no terminal e serão salvos no banco, incluindo atualização caso já exista esse produto no banco.
+
+![img_2.png](img_2.png)
+
+- Se buscar por "|", todas as informações técnicas que tiverem "|", serão retornadas no terminal e salvas no banco, incluindo atualização caso a mesma já exista no banco.
+
 ![img_1.png](img_1.png)
 
 # Observações

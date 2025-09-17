@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 class Product:
     def __init__(self, sku, titulo, preco, preco_pix, valor_parcela, numero_parcelas, informacoes_tecnicas):
         self.sku = sku
@@ -7,6 +10,7 @@ class Product:
         self.valor_parcela = valor_parcela
         self.numero_parcelas = numero_parcelas
         self.informacoes_tecnicas = informacoes_tecnicas
+        self.data_criacao = datetime.now()
 
     @property
     def sku(self):
@@ -35,6 +39,10 @@ class Product:
     @property
     def informacoes_tecnicas(self):
         return self._informacoes_tecnicas
+
+    @property
+    def data_criacao(self):
+        return self._data_criacao
 
     @sku.setter
     def sku(self, new):
@@ -68,3 +76,7 @@ class Product:
     @informacoes_tecnicas.setter
     def informacoes_tecnicas(self, new):
             self._informacoes_tecnicas = new
+
+    @data_criacao.setter
+    def data_criacao(self, new):
+        self._data_criacao = new
