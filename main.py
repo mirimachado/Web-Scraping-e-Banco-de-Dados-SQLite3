@@ -30,7 +30,7 @@ def verifica_se_existe_campo(elemento, seletor, classe):
         return "Nenhum resultado encontrado para esse campo."
 
 
-def pega_dados_da_url(url, parametro_pesquisa_usuario, opcao_digitada):
+def pega_dados_da_url(url, parametro_pesquisa_usuario, opcao_digitada, produtos_ja_exibidos):
  try:
      html = requests.get(url, headers=headers, timeout=10).content
      soup = BeautifulSoup(html, 'html.parser')
@@ -85,6 +85,10 @@ def pega_dados_da_url(url, parametro_pesquisa_usuario, opcao_digitada):
 
         if filtro_encontrado:
              verificador = verifica_se_o_produto_existe(cursor, item.sku)
+             if item.sku in produtos_ja_exibidos:
+                 continue
+             produtos_ja_exibidos.add(item.sku)
+
              print("Resultado encontrado: ")
              print("Informações técnicas: " + str(item.informacoes_tecnicas) + "\n"
                    + "Título do produto: " + item.titulo + "\n" + "Preço: " + item.preco + "\n"
@@ -108,12 +112,13 @@ def pega_dados_da_url(url, parametro_pesquisa_usuario, opcao_digitada):
 
 
 def redireciona_links_varredura(parametro_pesquisa_usuario, opcao_digitada):
+    produtos_ja_exibidos = set()
     lista_de_urls= ["https://www.lojamaeto.com/dia-dos-pais-ofertas-imperdiveis", "https://www.lojamaeto.com/banheiro",
                      "https://www.lojamaeto.com/construcao", "https://www.lojamaeto.com/iluminacao", "https://www.lojamaeto.com/lonas",
                      "https://www.lojamaeto.com/material-eletrico", "https://www.lojamaeto.com/lancamento-solara",
                      "https://www.lojamaeto.com/ventilacao", "https://www.lojamaeto.com/lavanderia", "https://www.lojamaeto.com/"]
     for item in lista_de_urls:
-        pega_dados_da_url(item, parametro_pesquisa_usuario, opcao_digitada)
+        pega_dados_da_url(item, parametro_pesquisa_usuario, opcao_digitada, produtos_ja_exibidos)
 
 opcao_digitada = input(f"Digite agora o seu parâmetro de busca,"
       f" você pode pesquisar por: \n 1 ) SKU do produto \n 2 ) Título do produto"
@@ -123,8 +128,6 @@ if not opcao_digitada.isdigit() or not (1 <= int(opcao_digitada) <= 7):
     exit()
 
 parametro_pesquisa_usuario = input("Digite o que deseja encontrar: ")
-
-
 
 redireciona_links_varredura(parametro_pesquisa_usuario, opcao_digitada)
 
