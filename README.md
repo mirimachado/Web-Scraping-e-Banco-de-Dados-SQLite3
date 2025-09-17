@@ -16,6 +16,9 @@ No terminal, digite conforme solicitado, você pode pesquisar por palavras que v
 pesquisar por título do produto, como exemplo: "REFLETOR LED 200W", por preço, por exemplo "61.43", por preço no PIX, número de parcelas e SKU do produto, por exemplo "920183746512400".
 
 
+https://github.com/user-attachments/assets/1e97a475-c5fb-4307-86f9-ca56becc9bcd
+
+
 # O banco de dados é alimentado conforme as pesquisas vão sendo realizadas
 
 ![img.png](img.png)
